@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Audio } from 'expo-av';
-import LocationTracker from './LocationTracker';
+import * as FileSystem from 'expo-file-system';
 import BatteryStatus from './BatteryStatus';
 import StorageStatus from './StorageStatus';
 import { ThemedText } from './ThemedText';
 import IconSymbol from './ui/IconSymbol';
+import { useBackgroundRecording } from '@/hooks/useBackgroundRecording';
 
 const RecordingInterface: React.FC = () => {
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [recordingDuration, setRecordingDuration] = useState(0);
+  const [lastRecordingUri, setLastRecordingUri] = useState<string | null>(null);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -65,11 +67,25 @@ const RecordingInterface: React.FC = () => {
       await recording.stopAndUnloadAsync();
       const uri = recording.getURI();
       console.log('Recording stopped, file saved at:', uri);
+      setLastRecordingUri(uri);
       setRecording(null);
       setIsRecording(false);
     } catch (err) {
       const error = err as Error;
       setError('Failed to stop recording: ' + error.message);
+    }
+  };
+
+  const deleteRecording = async () => {
+    if (!lastRecordingUri) return;
+
+    try {
+      await FileSystem.deleteAsync(lastRecordingUri);
+      setLastRecordingUri(null);
+      setError(null);
+    } catch (err) {
+      const error = err as Error;
+      setError('Failed to delete recording: ' + error.message);
     }
   };
 
@@ -86,30 +102,42 @@ const RecordingInterface: React.FC = () => {
         <StorageStatus />
       </View>
       
-      <LocationTracker />
-      
       {error && (
         <ThemedText style={styles.errorText}>{error}</ThemedText>
       )}
       
       <View style={styles.recordingInfo}>
-        {isRecording && (
-          <ThemedText style={styles.duration}>
-            {formatDuration(recordingDuration)}
-          </ThemedText>
-        )}
+        <ThemedText style={styles.duration}>
+          {isRecording ? formatDuration(recordingDuration) : "0:00"}
+        </ThemedText>
       </View>
 
-      <TouchableOpacity
-        style={[styles.recordButton, isRecording && styles.recording]}
-        onPress={isRecording ? stopRecording : startRecording}
-      >
-        <IconSymbol
-          name={isRecording ? "stop" : "fiber-manual-record"}
-          size={40}
-          color={isRecording ? "#fff" : "#ff4444"}
-        />
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[styles.recordButton, isRecording && styles.recording]}
+          onPress={isRecording ? stopRecording : startRecording}
+        >
+          <IconSymbol
+            name={isRecording ? "stop" : "fiber-manual-record"}
+            size={40}
+            color={isRecording ? "#fff" : "#ff4444"}
+          />
+        </TouchableOpacity>
+
+        {lastRecordingUri && !isRecording && (
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={deleteRecording}
+          >
+            <IconSymbol
+              name="delete-forever"
+              size={30}
+              color="#ff4444"
+              style={styles.deleteIcon}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -120,6 +148,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 20,
+    backgroundColor: '#fff',
   },
   statusBar: {
     flexDirection: 'row',
@@ -135,6 +164,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20,
+    marginBottom: 40,
+  },
   recordButton: {
     width: 80,
     height: 80,
@@ -147,10 +183,25 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    marginBottom: 40,
   },
   recording: {
     backgroundColor: '#ff4444',
+  },
+  deleteButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  deleteIcon: {
+    marginRight: 0,
   },
   errorText: {
     color: '#ff4444',

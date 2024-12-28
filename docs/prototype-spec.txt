@@ -3,52 +3,37 @@
 ## Technology Stack
 - Expo SDK latest
 - expo-av for audio recording
-- expo-location for basic GPS correlation
 - expo-file-system for local storage
-- expo-background-fetch for background tasks
 
 ## Core Architecture
-- Single screen interface with recorder component
-- Background mode for audio capture
-- Basic location correlation
-- Local file management system
+- Single screen interface
+- Basic audio recorder component
+- Local file management
+- Storage space tracking
 
 ## Test Implementation
-### Android Focus (Pixel 8)
-- Target Android 13+
-- Background service integration
-- Local storage using expo-file-system
-- Basic permissions handling
-
 ### Core Features
 1. Audio Recording
-   - One-touch activation
-   - Background capable
+   - Record/pause functionality
    - Auto-filename generation
    - Basic error handling
+   - Recording status indicator
 
-2. Location Tagging
-   - 5-minute GPS interval
-   - Low-accuracy mode for battery saving
-   - Basic coordinates only
-
-3. Storage Management
+2. Storage Management
    - Local file organization
-   - Basic cleanup routine
    - Storage space tracking
+   - Basic file cleanup
 
 ## Test Parameters
 Duration: 4-hour test sessions
 Measurements:
 - Battery drain rate
 - Storage consumption
-- Background reliability
 - Audio clarity at 3ft
 
 ## Success Criteria
 1. Battery Impact
    - < 15% battery drain per hour
-   - Background operation stable
 
 2. Audio Quality
    - Clear speech at 3ft distance
@@ -57,31 +42,20 @@ Measurements:
 
 3. System Performance
    - < 100MB storage per hour
-   - 99% background reliability
    - No app crashes
 
 4. User Requirements
    - Under 2 second launch to record
-   - One-touch operation works
-   - Basic feedback provided
+   - Simple record/pause operation
+   - Clear recording status indication
 
 ## Development Phases
-1. Basic Recording
+1. Basic Recording (Current Focus)
    - Audio capture setup
    - File saving implementation
    - UI feedback system
 
-2. Background Operation
-   - Service configuration
-   - Battery optimization
-   - Error handling
-
-3. Location Integration
-   - Basic GPS setup
-   - Timestamp correlation
-   - Power management
-
-4. Testing Framework
+2. Testing Framework
    - Battery monitoring
    - Storage tracking
    - Audio quality checks

@@ -1,38 +1,34 @@
 <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
   <!-- Core System Container -->
   <rect x="50" y="50" width="700" height="500" fill="#f8f9fa" stroke="#000" stroke-width="2"/>
-  <text x="60" y="80" font-family="Arial" font-size="18" fill="#000">Audio Prototype - Expo Architecture</text>
+  <text x="60" y="80" font-family="Arial" font-size="18" fill="#000">Audio Prototype - Core Recording Architecture</text>
   
   <!-- UI Layer -->
   <rect x="100" y="100" width="600" height="120" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
   <text x="120" y="130" font-family="Arial" font-size="16" fill="#1976d2">User Interface Layer</text>
   <!-- Record Button -->
-  <rect x="120" y="150" width="150" height="50" rx="5" fill="#fff" stroke="#1976d2" stroke-width="2"/>
-  <text x="135" y="180" font-family="Arial" font-size="14">RecordButton</text>
+  <rect x="120" y="150" width="250" height="50" rx="5" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+  <text x="135" y="180" font-family="Arial" font-size="14">RecordButton (Record/Pause)</text>
   <!-- Status Display -->
-  <rect x="320" y="150" width="150" height="50" rx="5" fill="#fff" stroke="#1976d2" stroke-width="2"/>
-  <text x="335" y="180" font-family="Arial" font-size="14">StatusDisplay</text>
+  <rect x="420" y="150" width="250" height="50" rx="5" fill="#fff" stroke="#1976d2" stroke-width="2"/>
+  <text x="435" y="180" font-family="Arial" font-size="14">StatusDisplay (Recording/Storage)</text>
   
   <!-- Core Services -->
   <rect x="100" y="250" width="600" height="150" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
   <text x="120" y="280" font-family="Arial" font-size="16" fill="#2e7d32">Expo Services</text>
   <!-- Audio Service -->
-  <rect x="120" y="300" width="150" height="80" rx="5" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+  <rect x="120" y="300" width="250" height="80" rx="5" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
   <text x="135" y="330" font-family="Arial" font-size="14">expo-av</text>
-  <text x="135" y="350" font-family="Arial" font-size="12">Audio Recording</text>
-  <!-- Location Service -->
-  <rect x="320" y="300" width="150" height="80" rx="5" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
-  <text x="335" y="330" font-family="Arial" font-size="14">expo-location</text>
-  <text x="335" y="350" font-family="Arial" font-size="12">Basic GPS</text>
+  <text x="135" y="350" font-family="Arial" font-size="12">Audio Recording + Status</text>
   <!-- Storage Service -->
-  <rect x="520" y="300" width="150" height="80" rx="5" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
-  <text x="535" y="330" font-family="Arial" font-size="14">expo-file-system</text>
-  <text x="535" y="350" font-family="Arial" font-size="12">Local Storage</text>
+  <rect x="420" y="300" width="250" height="80" rx="5" fill="#fff" stroke="#2e7d32" stroke-width="2"/>
+  <text x="435" y="330" font-family="Arial" font-size="14">expo-file-system</text>
+  <text x="435" y="350" font-family="Arial" font-size="12">Local Storage + Space Tracking</text>
   
   <!-- Data Layer -->
   <rect x="100" y="430" width="600" height="100" rx="10" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
   <text x="120" y="460" font-family="Arial" font-size="16" fill="#f57c00">Local Data</text>
   <!-- Storage Structure -->
   <rect x="120" y="480" width="560" height="30" rx="5" fill="#fff" stroke="#f57c00" stroke-width="2"/>
-  <text x="135" y="500" font-family="Arial" font-size="12">Audio Files + Timestamps + Location Data</text>
+  <text x="135" y="500" font-family="Arial" font-size="12">Audio Files + Timestamps</text>
 </svg>
