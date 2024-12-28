@@ -1,0 +1,27 @@
+import { Link } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
+import { type ComponentProps } from 'react';
+import { Platform } from 'react-native';
+
+type Props = Omit<ComponentProps<typeof Link>, 'href'> & {
+  href: string | { pathname: string; params?: Record<string, unknown> };
+};
+
+export function ExternalLink({ href, ...rest }: Props) {
+  const hrefString = typeof href === 'string' ? href : href.pathname;
+  
+  return (
+    <Link
+      target="_blank"
+      {...rest}
+      href={hrefString}
+      onPress={async (event) => {
+        if (Platform.OS !== 'web') {
+          event.preventDefault();
+          await WebBrowser.openBrowserAsync(hrefString);
+        }
+        rest.onPress?.(event);
+      }}
+    />
+  );
+}

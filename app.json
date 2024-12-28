@@ -15,7 +15,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "RECORD_AUDIO",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE",
+        "WAKE_LOCK"
+      ],
+      "package": "com.yourcompany.audioprototype"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +40,14 @@
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location for tracking your audio recordings.",
+          "locationAlwaysPermission": "Allow $(PRODUCT_NAME) to use your location in the background for tracking your audio recordings.",
+          "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location while using the app."
         }
       ]
     ],
